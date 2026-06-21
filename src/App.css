@@ -1,0 +1,17 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  min-height: 100svh;
+  padding: 32px 24px 48px;
+}
+
+.app-header {
+  text-align: center;
+}
+
+.app-header p {
+  max-width: 480px;
+  line-height: 1.6;
+}
