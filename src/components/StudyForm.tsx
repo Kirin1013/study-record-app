@@ -6,6 +6,11 @@ import {
 } from '../types/studyRecord'
 import './StudyForm.css'
 
+// 親（App）から受け取る props の型
+type StudyFormProps = {
+  onAddRecord: (formData: StudyFormData) => void
+}
+
 function getTodayString(): string {
   return new Date().toISOString().split('T')[0]
 }
@@ -18,7 +23,8 @@ const initialFormData: StudyFormData = {
   memo: '',
 }
 
-function StudyForm() {
+function StudyForm({ onAddRecord }: StudyFormProps) {
+  // フォームの入力値を state で管理（STEP2 と同じ）
   const [form, setForm] = useState<StudyFormData>(initialFormData)
 
   const handleChange = (
@@ -35,8 +41,15 @@ function StudyForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // STEP3 で一覧表示・保存処理を追加する
-    console.log('入力内容:', form)
+
+    // 親コンポーネント（App）に入力内容を渡す
+    onAddRecord(form)
+
+    // 登録後はフォームを初期状態に戻す
+    setForm({
+      ...initialFormData,
+      date: getTodayString(),
+    })
   }
 
   return (
